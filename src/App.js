@@ -15,7 +15,7 @@ function App() {
     })
     const [mp, setMp] = useState([])
     const [senator, setSenator] = useState([])
-    const [clientId, setClientId] = useState(`63cef5b73a7ef024f7ec6b00`)
+    const [clientId, setClientId] = useState(`636dadcf2626f92aade6664a`)
     const adanCID ='636dadcf2626f92aade6664a'
     const fetchData = async () => {
         const requestOptions = {
@@ -25,8 +25,8 @@ function App() {
         const data = await fetch(`https://payload-demo-tpm.herokuapp.com/emails-content/?clientId=${clientId}`, requestOptions);
         const datos = await data.json()
         console.log(datos.data, 'datos.data-email')
-        dataUser.text = datos.data?.docs[0].content[0].children[0].text
-        dataUser.subject = datos.data?.docs[0].subject
+        dataUser.text = datos.data?.docs[0] ? datos.data?.docs[0].content[0].children[0].text : 'Introduzca un texto sugerido' 
+        dataUser.subject = datos.data?.docs[0] ? datos.data?.docs[0].subject : 'Por favor introduzca un asunto del correos'
     }
     
     useEffect(() => {

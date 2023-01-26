@@ -6,9 +6,8 @@ import Col from "react-bootstrap/cjs/Col";
 import axios from "axios";
 import Alert from "react-bootstrap/Alert";
 import Loader from "react-loader-spinner";
-import { async } from 'crypto-random-string';
 
-const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, showEmailForm, setShowEmailForm, emailData, setEmailData, clientId}) => {
+const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, showEmailForm, setShowEmailForm, emailData, setEmailData, clientId, allDataIn}) => {
     const [validated, setValidated] = useState(false);
     const [error, setError] = useState(false)
     const [showLoadSpin, setShowLoadSpin] = useState(false)
@@ -44,7 +43,7 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
         setError(false)
         const name = dataUser.userName.split(' ')
         console.log(name)
-        const payload = await axios.post(`https://payload-demo-tpm.herokuapp.com/send-email?to=${emailData.contact}&subject=${dataUser.subject}&text=${dataUser.text}&firstName=${dataUser.userName ? dataUser.userName:''}&postalcode=${dataUser.zipCode ? dataUser.zipCode: dataUser.state}&emailData=${dataUser.emailUser}&representative=${emailData.Name}&emailMessage=${dataUser.text}&city=${emailData.state}&party=${emailData.party}&clientId=${clientId}`, {dataUser, emailData})
+        const payload = await axios.post(`https://payload-demo-tpm.herokuapp.com/send-email?to=${emailData.contact}&subject=${dataUser.subject}&text=${dataUser.text}&firstName=${dataUser.userName ? dataUser.userName:''}&postalcode=${dataUser.zipCode ? dataUser.zipCode: dataUser.state}&emailData=${dataUser.emailUser}&representative=${emailData.Name}&emailMessage=${dataUser.text}&city=${emailData.state}&party=${emailData.party}&clientId=${clientId}`, {body: allDataIn})
         await setShowLoadSpin(false)
         if (payload.status === 200) {
             correoEnviado('Si',{dataUser, emailData})
@@ -115,42 +114,23 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
                 </div>
                 <Col>
                     <Form.Label>
-                        PARA: INFORMACIÓN DEL REPRESENTANTE
+                        PARA: INFORMACIÓN DE LOS REPRESENTANTES
                     </Form.Label>
                 </Col>
                 <div className={'formEmail'}>
-                    <Col>
+                    { allDataIn.map((representative) =><Col>
                         <Form.Group>
                             <Form.Control
                                 as={'input'}
                                 readOnly
                                 type="text"
-                                placeholder={emailData.name}
+                                placeholder={representative}
                                 name="nameTo"
+                                key={representative}
                             />
                         </Form.Group>
                     </Col>
-                    <Col>
-                        <Form.Group>
-                            <Form.Control
-                                as={'input'}
-                                readOnly
-                                type="text"
-                                placeholder={`${emailData.state}`}
-                                name="state-city"
-                            />
-                        </Form.Group>
-                    </Col>
-                    <Col>
-                        <InputGroup>
-                            <Form.Control
-                                readOnly
-                                type="text"
-                                name="cp"
-                                placeholder={dataUser.zipCode}
-                            />
-                        </InputGroup>
-                    </Col>
+                    )}
                 </div>
                 <div className='input-subject'>
                     <Col>

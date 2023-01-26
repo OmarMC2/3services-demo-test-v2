@@ -7,14 +7,13 @@ import axios from "axios";
 import List from "./List";
 import mainimage from "../assets/laptop-with-notebook-and-glasses-on-table.jpg";
 //import icon from '../assets/tw.png'
-import cryptoRandomString, { async } from "crypto-random-string";
+
 import EmailForm from "./EmailForm";
 import ThankYou from "./ThankYou";
 import Card from "react-bootstrap/cjs/Card";
 import { Link, animateScroll as scroll } from "react-scroll";
 import { io } from "socket.io-client";
 import mps from "../assets/mps";
-import Pagination from './Pagination';
 
 const MainForm = ({
   dataUser,
@@ -68,17 +67,14 @@ const MainForm = ({
 
     setError(false);
     //---> ends validation form
-    const randomId = cryptoRandomString({
-      type: "distinguishable",
-      length: 10,
-    });
-    dataUser.id = randomId;
+
+    dataUser.id = 'asdkasldjakls';
     const requestOptions = {
       method: "GET",
       redirect: "follow",
     };
     fetch(
-      `http://localhost:8080/all-representatives/?clientId=${clientId}`,
+      `https://payload-demo-tpm.herokuapp.com/all-representatives/?clientId=${clientId}`,
       requestOptions
     )
       .then((response) => response.json())
@@ -127,8 +123,8 @@ const MainForm = ({
           className="card-img"
           style={{
             backgroundImage: `url(${
-              mainData.data?.docs[0].backgroundImage?.sizes.card.url
-                ? mainData.data?.docs[0].backgroundImage.sizes.card.url
+              mainData.data?.docs[0]
+                ? mainData.data?.docs[0].backgroundImage?.sizes.card.url
                 : mainimage
             })`,
             backgroundPosition: "center",
@@ -138,16 +134,16 @@ const MainForm = ({
         <Card.ImgOverlay className={"card-img-overlay"}>
           <Card.Body>
             <Card.Text className={"text"}>
-              {mainData.data?.docs[0].mainTitle}
+              {mainData.data?.docs[0] ? mainData.data?.docs[0].mainTitle : 'Por favor introduzca un título en su dashboard'}
             </Card.Text>
             <Card.Text className={"text2"}>
-              {mainData.data?.docs[0].mainSubtitle}
+              {mainData.data?.docs[0] ? mainData.data?.docs[0].mainSubtitle : 'Por favor introduzca un subtítulo en su dashboard'}
             </Card.Text>
           </Card.Body>
         </Card.ImgOverlay>
       </Card>
       <div className={"container instructions"}>
-        {mainData.data?.docs[0].instructions}
+        {mainData.data?.docs[0] ? mainData.data?.docs[0].instructions : 'Por favor introduzca un texto de intrucción en su dashboard'}
       </div>
       <div className={"form-container"}>
         <div hidden={showFindForm} className={"container container-content"}>
@@ -196,9 +192,7 @@ const MainForm = ({
                 onClick={click}
                 className={"u-full-width capitalize-style find-btn-main-form"}
               >
-                {mainData.data?.docs[0]["Find Button"]
-                  ? mainData.data?.docs[0]["Find Button"]
-                  : "Find your representative"}
+                {mainData.data?.docs[0]  ? mainData.data?.docs[0] ['Find Button'] : 'Find your representative'}
               </Button>
             </Form.Group>
             {showLoadSpin ? (
