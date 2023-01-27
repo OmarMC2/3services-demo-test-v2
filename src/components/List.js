@@ -34,7 +34,7 @@ const List = ({allDataIn,setAllDataIn,mp, dataUser,  setEmailData,  setShowFindF
         
         console.log(tweet, 'tweet state en useeffect')
     },[])
-    const tweetText = `.${repTwitter0} ${repTwitter1} ${repTwitter2} ${repTwitter3} ${repTwitter4} ${tweet}`
+    const tweetText = `${repTwitter0} ${repTwitter1} ${repTwitter2} ${repTwitter3} ${repTwitter4} ${tweet}`
     console.log(tweetText)
 
  const click = e => {
