@@ -43,7 +43,7 @@ const EmailForm = ({setShowThankYou, setShowFindForm, dataUser, setDataUser, sho
         setError(false)
         const name = dataUser.userName.split(' ')
         console.log(name)
-        const payload = await axios.post(`https://payload-demo-tpm.herokuapp.com/send-email?to=${emailData.contact}&subject=${dataUser.subject}&text=${dataUser.text}&firstName=${dataUser.userName ? dataUser.userName:''}&postalcode=${dataUser.zipCode ? dataUser.zipCode: dataUser.state}&emailData=${dataUser.emailUser}&representative=${emailData.Name}&emailMessage=${dataUser.text}&city=${emailData.state}&party=${emailData.party}&clientId=${clientId}`, {body: allDataIn})
+        const payload = await axios.post(`https://payload-demo-tpm.herokuapp.com/send-email?to=${allDataIn}&subject=${dataUser.subject}&text=${dataUser.text}&firstName=${dataUser.userName ? dataUser.userName:''}&emailData=${dataUser.emailUser}&emailMessage=${dataUser.text}&clientId=${clientId}`)
         await setShowLoadSpin(false)
         if (payload.status === 200) {
             correoEnviado('Si',{dataUser, emailData})

@@ -9,7 +9,13 @@ const List = ({allDataIn,setAllDataIn,mp, dataUser,  setEmailData,  setShowFindF
     const [checkBox2,setCheckBox2] = useState([])
     const [checkBox3,setCheckBox3] = useState([])
     const [checkBox4,setCheckBox4] = useState([])
-   
+    const [repTwitter0,setRepTwitter0] = useState([])
+    const [repTwitter1,setRepTwitter1] = useState([])
+    const [repTwitter2,setRepTwitter2] = useState([])
+    const [repTwitter3,setRepTwitter3] = useState([])
+    const [repTwitter4,setRepTwitter4] = useState([])
+
+
     const fetchData = async () => {
         const requestOptions = {
             method: 'POST',
@@ -18,18 +24,18 @@ const List = ({allDataIn,setAllDataIn,mp, dataUser,  setEmailData,  setShowFindF
         const data = await fetch(`https://payload-demo-tpm.herokuapp.com/tweets/?clientId=${clientId}`, requestOptions);
         const datos = await data.json()
         console.log(datos.data, 'datos.data-tweet')
-        const textoTweet = datos.data?.docs[0].Message
+        const textoTweet = datos.data?.docs[0] ? datos.data?.docs[0].Message : 'Por favor introduzca un mensaje de twitter para los representantes en ele dashboard'
         setTweet(textoTweet)
     }
     
-    /*useEffect(() => {
+    useEffect(() => {
         fetchData()
         .catch((error)=>console.error(error))
         
         console.log(tweet, 'tweet state en useeffect')
-    },[])*/
-   // const tweetText = `.${mps.twitter} ${tweet}`
-   // console.log(tweetText)
+    },[])
+    const tweetText = `.${repTwitter0} ${repTwitter1} ${repTwitter2} ${repTwitter3} ${repTwitter4} ${tweet}`
+    console.log(tweetText)
 
  const click = e => {
         e.preventDefault()
@@ -49,10 +55,13 @@ const List = ({allDataIn,setAllDataIn,mp, dataUser,  setEmailData,  setShowFindF
           setCheckBox0([
             e.target.value
           ])
+          setRepTwitter0([
+            e.target.name
+          ])
         } else {
             console.log('HEREFalse!')
            setCheckBox0([])
-
+           setRepTwitter0([])
         }
     }
     const checkBox1Handled = e => {
@@ -61,10 +70,13 @@ const List = ({allDataIn,setAllDataIn,mp, dataUser,  setEmailData,  setShowFindF
           setCheckBox1([
             e.target.value
           ])
+          setRepTwitter1([
+            e.target.name
+          ])
         } else {
             console.log('HEREFalse!')
            setCheckBox1([])
-
+           setRepTwitter1([])
         }
     }
     const checkBox2Handled = e => {
@@ -73,10 +85,13 @@ const List = ({allDataIn,setAllDataIn,mp, dataUser,  setEmailData,  setShowFindF
           setCheckBox2([
             e.target.value
           ])
+          setRepTwitter2([
+            e.target.name
+          ])
         } else {
             console.log('HEREFalse!')
            setCheckBox2([])
-
+           setRepTwitter2([])
         }
     }
     const checkBox3Handled = e => {
@@ -85,10 +100,13 @@ const List = ({allDataIn,setAllDataIn,mp, dataUser,  setEmailData,  setShowFindF
           setCheckBox3([
             e.target.value
           ])
+          setRepTwitter3([
+            e.target.name
+          ])
         } else {
             console.log('HEREFalse!')
            setCheckBox3([])
-
+           setRepTwitter3([])
         }
     }
     const checkBox4Handled = e => {
@@ -97,10 +115,13 @@ const List = ({allDataIn,setAllDataIn,mp, dataUser,  setEmailData,  setShowFindF
           setCheckBox4([
             e.target.value
           ])
+          setRepTwitter4([
+            e.target.name
+          ])
         } else {
             console.log('HEREFalse!')
            setCheckBox4([])
-
+            setRepTwitter4([])
         }
     }
  useEffect(() => {
@@ -114,59 +135,57 @@ const List = ({allDataIn,setAllDataIn,mp, dataUser,  setEmailData,  setShowFindF
                     <p>Código Postal: {mp[0].postalcode}, Estado: {mp[0].state ? mp[0].state : ' ---'}, Fracción:{mp[0].party ? mp[0].party: ' ---'}</p>
                 </div>
                 
-                <input type="checkbox" value={mp[0].contact} onClick={checkBox0Handled} id={0} />
+                <input name={mp[0].twitter} type="checkbox" value={mp[0].contact} onClick={checkBox0Handled} id={0} />
             </div>
             <div>
                 <div>
                     <h3 className='capitalize-style'> {mp[1].name} {mp[1].lastName}</h3>
                     <p>Código Postal: {mp[1].postalcode}, Estado: {mp[1].state ? mp[1].state : ' ---'}, Fracción:{mp[1].party ? mp[1].party: ' ---'}</p>
                 </div>
-                <input type="checkbox" value={mp[1].contact} onClick={checkBox1Handled} id={1} />
+                <input name={mp[1].twitter} type="checkbox" value={mp[1].contact} onClick={checkBox1Handled} id={1} />
                 <div>
                 <div>
                     <h3 className='capitalize-style'> {mp[2].name} {mp[2].lastName}</h3>
                     <p>Código Postal: {mp[2].postalcode}, Estado: {mp[2].state ? mp[2].state : ' ---'}, Fracción:{mp[2].party ? mp[2].party: ' ---'}</p>
                 </div>
                 
-                <input type="checkbox" value={mp[2].contact} onClick={checkBox2Handled} id={2} />
+                <input name={mp[2].twitter} type="checkbox" value={mp[2].contact} onClick={checkBox2Handled} id={2} />
             </div>
             <div>
                 <div>
                     <h3 className='capitalize-style'> {mp[3].name} {mp[3].lastName}</h3>
                     <p>Código Postal: {mp[3].postalcode}, Estado: {mp[3].state ? mp[3].state : ' ---'}, Fracción:{mp[3].party ? mp[3].party: ' ---'}</p>
                 </div>
-                <input type="checkbox" value={mp[3].contact} onClick={checkBox3Handled} id={3} />
+                <input name={mp[3].twitter} type="checkbox" value={mp[3].contact} onClick={checkBox3Handled} id={3} />
             </div>
             <div>
                 <div>
                     <h3 className='capitalize-style'> {mp[4].name} {mp[4].lastName}</h3>
                     <p>Código Postal: {mp[4].postalcode}, Estado: {mp[4].state ? mp[4].state : ' ---'}, Fracción:{mp[4].party ? mp[4].party: ' ---'}</p>
                 </div>
-                <input type="checkbox" value={mp[4].contact} onClick={checkBox4Handled} id={4} />
+                <input name={mp[4].twitter} type="checkbox" value={mp[4].contact } onClick={checkBox4Handled} id={4} />
             </div>
             </div>
             <div className={'buttons'}>
                 <div >
-                    {
-                        mp.twitter && mp.clientId?.plan !== 'basic'?
+                    
                         <Button
                             className='list-button'
-                            size={'sm'}
+                            size={'m'}
                             variant={'dark'}
-                           // href={`https://twitter.com/intent/tweet?text=${tweetText}`}
+                            href={`https://twitter.com/intent/tweet?text=${tweetText}`}
                             target={"blank"}
                         >
                             Enviar tweet
-                        </Button> :
-                        <p className='list-notweeter-text' >No hay Twitter</p>
-                    }
+                        </Button> 
+                    
                 </div>
                 <div >
                     
                       
                             <Button
                                 className='list-button'
-                                size={'sm'}
+                                size={'m'}
                                 variant={'dark'}
                                 target={"blank"}
                                 onClick={click}
@@ -174,21 +193,7 @@ const List = ({allDataIn,setAllDataIn,mp, dataUser,  setEmailData,  setShowFindF
                                 Enviar email
                             </Button>  
                 </div>
-                <div >
-                    {
-                        mp.phone  && mp.clientId?.plan !== 'basic' ?
-                            <Button
-                                className='list-button'
-                                size={'sm'}
-                                variant={'dark'}
-                                href={`tel:+55${mp.phone}`}
-                                target={"blank"}
-                            >
-                                Llamada
-                            </Button> :
-                            <p className='list-notweeter-text'>No hay telefono</p>
-                    }
-                </div>
+                
             </div>
         </div>
         
